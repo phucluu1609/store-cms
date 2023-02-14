@@ -1,12 +1,11 @@
+import axios from "axios";
 import { call, put, takeLatest } from "redux-saga/effects";
 import {
   loadMenuRequesting,
   loadMenuSuccess,
 } from "../LoadingIndicator/actions";
-import axios from "axios";
 import { invalidLogin, receiveApiLogin } from "./actions";
 import { GET_API_LOGIN } from "./constants";
-import { NotiError } from "../Notifications/actions";
 
 const qs = require("qs");
 
@@ -49,8 +48,7 @@ function* callApiLogin(infoUser) {
     if (JSON.stringify(error).includes("400")) {
       yield put(invalidLogin());
     } else {
-      yield put(NotiError(`API login ${error}`));
-      console.log("API login failed", error);
+      alert("API login failed", error);
     }
   }
 }

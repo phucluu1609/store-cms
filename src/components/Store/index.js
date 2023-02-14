@@ -1,19 +1,12 @@
 import { Box, Container, Typography, Button } from "@mui/material";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { NotiSuccess } from "../../containers/Notifications/actions";
 import { BtnCancel, BtnSave, ListBtn } from "../../UI/ActionsButton";
 import InfoStore from "./InfoStore";
 
 function Store() {
-  const dispatch = useDispatch();
-
   // Handle events click
-  const handleSaveStore = () => {
-    try {
-      dispatch(NotiSuccess("Successfully saved"));
-    } catch (e) {}
-  };
+  const handleSaveStore = () => {};
 
   const handleCancelSaveStore = () => {};
 
