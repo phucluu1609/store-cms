@@ -1,6 +1,6 @@
 import React from "react";
-import Login from "../../components/Login";
 import { Helmet } from "react-helmet";
+import Login from "../../components/Login";
 
 function LoginPage(props) {
   return (

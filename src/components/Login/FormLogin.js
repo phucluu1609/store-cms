@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
+  Alert,
   Button,
   IconButton,
   InputAdornment,
@@ -9,8 +10,9 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-// import { useDispatch } from "react-redux";
-// import { getApiLogin } from "../../containers/LoginPage/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getApiLogin } from "../../containers/LoginPage/actions";
 
 // Styled component
 const Container = styled("div")({
@@ -22,7 +24,7 @@ const Container = styled("div")({
 });
 
 const LoginForm = styled("div")({
-  width: "80%",
+  width: "86%",
   backgroundColor: "white",
   margin: "0 auto",
   padding: 30,
@@ -33,20 +35,23 @@ const Title = styled("div")({
   textAlign: "center",
 });
 
-const Welcome = styled("div")({
+const Welcome = styled("div")(() => ({
   color: "#04aa6d",
   fontSize: 24,
   fontWeight: 700,
   marginBottom: 5,
-});
+}));
 
 const Subtitle = styled("div")({
   marginBottom: 25,
 });
 
 function FormLogin(props) {
-  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
+
+  const { invalidLogin } = useSelector((state) => state.loginPageReducer);
 
   const {
     register,
@@ -54,12 +59,18 @@ function FormLogin(props) {
     formState: { errors },
   } = useForm();
 
-  // Handle events
+  // Handle events click
   const handleSubmitForm = (values) => {
     try {
       // dispatch(getApiLogin(values));
     } catch (error) {
-      throw new Error("Something went wrong. Please try again later.");
+      const errorObj = {
+        From: "../components/Login/FormLogin",
+        Function: "handleSubmitForm",
+        Message: error.stack,
+      };
+      sessionStorage.setItem("ErrorObj", JSON.stringify(errorObj));
+      navigate("/error_page");
     }
   };
 
@@ -89,10 +100,11 @@ function FormLogin(props) {
             error={errors.username && true}
           />
           {errors.username && (
-            <Typography sx={{ color: "red" }} variant="subtitle1">
+            <Typography color="secondary" variant="subtitle1">
               Username is required
             </Typography>
           )}
+
           <TextField
             id="password-input"
             label="Password"
@@ -114,7 +126,7 @@ function FormLogin(props) {
             }}
           />
           {errors.password && (
-            <Typography variant="subtitle1" sx={{ color: "red" }}>
+            <Typography variant="subtitle1" color="secondary">
               Password is required
             </Typography>
           )}
@@ -129,6 +141,13 @@ function FormLogin(props) {
           </Button>
         </form>
       </LoginForm>
+
+      {invalidLogin && (
+        <Alert severity="error">
+          The username or password is incorrect.
+          <br /> Please try again.
+        </Alert>
+      )}
     </Container>
   );
 }

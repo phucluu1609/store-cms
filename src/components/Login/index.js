@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "../../UI/Layouts/Footer";
 import FormLogin from "./FormLogin";
 import Header from "./Header";
 
@@ -7,6 +8,7 @@ function Login() {
     <div>
       <Header />
       <FormLogin />
+      <Footer />
     </div>
   );
 }
