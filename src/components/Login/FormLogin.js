@@ -21,7 +21,7 @@ const Container = styled("div")({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "100vh",
+  height: "calc(100vh - 100px)",
 });
 
 const LoginForm = styled("div")({
@@ -129,7 +129,7 @@ function FormLogin(props) {
             color="primary"
             type="submit"
             fullWidth
-            style={{ marginTop: "25px" }}
+            sx={{ marginTop: "25px" }}
           >
             Login
           </Button>
