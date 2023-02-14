@@ -26,6 +26,7 @@
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.1",
+    "react-web-qr-reader": "^1.0.4",
     "redux": "^4.2.1",
     "redux-saga": "^1.2.2",
     "universal-cookie": "^4.0.4",
