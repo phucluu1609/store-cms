@@ -10,7 +10,7 @@ import { routes } from "./privateRoutes";
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
-  const location = useLocation();
+  // const location = useLocation();
   // const [urlPage, setUrlpage] = useState("");
   const [toggleMenu, setToggleMenu] = useState(false);
 

@@ -8,10 +8,4 @@ export const routes = [
     protected: true,
     component: <StorePage />,
   },
-  {
-    path: "/",
-    exact: true,
-    protected: true,
-    component: <StorePage />,
-  },
 ];

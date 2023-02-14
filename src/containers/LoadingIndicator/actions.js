@@ -4,25 +4,22 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-  LOAD_MENU_REQUESTING,
-  LOAD_MENU_SUCCESS,
-} from "./constants";
+import { LOAD_REQUESTING, LOAD_SUCCESS, LOAD_ERROR } from "./constants";
 
-export function defaultAction() {
+export function loadRequesting() {
   return {
-    type: DEFAULT_ACTION,
-  };
-}
-export function loadMenuRequesting() {
-  return {
-    type: LOAD_MENU_REQUESTING,
+    type: LOAD_REQUESTING,
   };
 }
 
-export function loadMenuSuccess() {
+export function loadSuccess() {
   return {
-    type: LOAD_MENU_SUCCESS,
+    type: LOAD_SUCCESS,
+  };
+}
+
+export function loadError() {
+  return {
+    type: LOAD_ERROR,
   };
 }

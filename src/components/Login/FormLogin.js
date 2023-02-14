@@ -11,7 +11,8 @@ import {
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { getApiLogin } from "../../containers/LoginPage/actions";
 
 // Styled component
@@ -47,7 +48,6 @@ const Subtitle = styled("div")({
 });
 
 function FormLogin(props) {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -62,15 +62,9 @@ function FormLogin(props) {
   // Handle events click
   const handleSubmitForm = (values) => {
     try {
-      // dispatch(getApiLogin(values));
+      dispatch(getApiLogin(values));
     } catch (error) {
-      const errorObj = {
-        From: "../components/Login/FormLogin",
-        Function: "handleSubmitForm",
-        Message: error.stack,
-      };
-      sessionStorage.setItem("ErrorObj", JSON.stringify(errorObj));
-      navigate("/error_page");
+      toast.error(error.message);
     }
   };
 

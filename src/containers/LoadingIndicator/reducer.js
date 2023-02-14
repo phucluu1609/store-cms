@@ -4,12 +4,7 @@
  *
  */
 
-import {
-  DEFAULT_ACTION,
-  LOAD_MENU_REQUESTING,
-  LOAD_MENU_SUCCESS,
-  LOAD_MENU_ERROR,
-} from "./constants";
+import { LOAD_REQUESTING, LOAD_SUCCESS, LOAD_ERROR } from "./constants";
 
 export const initialState = {
   requesting: false,
@@ -21,24 +16,21 @@ export const initialState = {
 /* eslint-disable default-case, no-param-reassign */
 export const loadingIndicatorReducer = (state = initialState, action) => {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      break;
-
-    case LOAD_MENU_REQUESTING:
+    case LOAD_REQUESTING:
       return {
         ...state,
         requesting: true,
         messages: [{ body: "Loading...", time: new Date() }],
       };
 
-    case LOAD_MENU_SUCCESS:
+    case LOAD_SUCCESS:
       return {
         ...state,
         successful: true,
-        messages: [{ body: "Load Menu successfully...", time: new Date() }],
+        messages: [{ body: "Load successfully...", time: new Date() }],
       };
 
-    case LOAD_MENU_ERROR:
+    case LOAD_ERROR:
       return {
         ...state,
         errors: state.errors.concat([
