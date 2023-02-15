@@ -3,7 +3,7 @@ import {
   RECEIVE_API_LOGIN,
   LOG_OUT,
   LOGINED,
-  EXPIRE_COOKIE,
+  EXPIRED_COOKIE,
   INVALID_LOGIN,
 } from "./constants";
 
@@ -32,9 +32,9 @@ export function logined() {
   };
 }
 
-export function expireCookies() {
+export function expiredCookies() {
   return {
-    type: EXPIRE_COOKIE,
+    type: EXPIRED_COOKIE,
   };
 }
 

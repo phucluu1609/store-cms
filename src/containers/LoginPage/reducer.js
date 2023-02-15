@@ -1,6 +1,6 @@
 import Cookies from "universal-cookie";
 import {
-  EXPIRE_COOKIE,
+  EXPIRED_COOKIE,
   GET_API_LOGIN,
   INVALID_LOGIN,
   LOGINED,
@@ -66,7 +66,7 @@ export const loginPageReducer = (state = initialState, action) => {
         infoUser: [],
       };
 
-    case EXPIRE_COOKIE:
+    case EXPIRED_COOKIE:
       Object.keys(cookie.getAll()).forEach(function (item) {
         cookie.remove(item, { path: "/" });
       });
