@@ -1,32 +1,30 @@
-import styled from "@emotion/styled";
-import { Add, Clear, Delete, Edit, Publish, Save } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import styled from '@emotion/styled'
+import { Add, Clear, Delete, Edit, Publish, Save } from '@mui/icons-material'
+import { Button } from '@mui/material'
 
 // Styled component
-const BoxListBtn = styled("div")({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "flex-end",
-  position: "absolute",
-  bottom: "-100px",
-  right: 16,
-});
+const BoxListBtn = styled('div')({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+})
 
 const ButtonSave = styled(Button)({
-  backgroundColor: "#04aa6d",
-  "&:hover": {
-    backgroundColor: "#04aa6d",
+  backgroundColor: '#04aa6d',
+  '&:hover': {
+    backgroundColor: '#04aa6d',
   },
   marginLeft: 15,
-});
+})
 
 const ButtonCancle = styled(Button)({
-  backgroundColor: "#6c757d",
-  "&:hover": {
-    backgroundColor: "#6c757d",
+  backgroundColor: '#6c757d',
+  '&:hover': {
+    backgroundColor: '#6c757d',
   },
   marginLeft: 15,
-});
+})
 
 const BtnAdd = (props) => {
   return (
@@ -39,8 +37,8 @@ const BtnAdd = (props) => {
     >
       Add
     </Button>
-  );
-};
+  )
+}
 
 const BtnDelete = (props) => {
   return (
@@ -53,8 +51,8 @@ const BtnDelete = (props) => {
     >
       Delete
     </Button>
-  );
-};
+  )
+}
 
 const BtnEdit = (props) => {
   return (
@@ -67,10 +65,11 @@ const BtnEdit = (props) => {
     >
       Edit
     </Button>
-  );
-};
+  )
+}
 
 const BtnSave = (props) => {
+  const { disableBtn } = props
   return (
     <ButtonSave
       startIcon={<Save />}
@@ -78,11 +77,12 @@ const BtnSave = (props) => {
       color="primary"
       onClick={() => props.handleBtnSave()}
       size="small"
+      disabled={disableBtn}
     >
       Save
     </ButtonSave>
-  );
-};
+  )
+}
 
 const BtnCancel = (props) => {
   return (
@@ -95,8 +95,8 @@ const BtnCancel = (props) => {
     >
       Cancel
     </ButtonCancle>
-  );
-};
+  )
+}
 
 const BtnUpdate = (props) => {
   return (
@@ -109,10 +109,10 @@ const BtnUpdate = (props) => {
     >
       Update
     </Button>
-  );
-};
+  )
+}
 
 const ListBtn = (props) => {
-  return <BoxListBtn>{props.children}</BoxListBtn>;
-};
-export { BtnAdd, BtnDelete, BtnEdit, BtnSave, BtnCancel, BtnUpdate, ListBtn };
+  return <BoxListBtn>{props.children}</BoxListBtn>
+}
+export { BtnAdd, BtnDelete, BtnEdit, BtnSave, BtnCancel, BtnUpdate, ListBtn }

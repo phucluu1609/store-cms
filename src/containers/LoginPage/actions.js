@@ -1,45 +1,21 @@
-import {
-  GET_API_LOGIN,
-  RECEIVE_API_LOGIN,
-  LOG_OUT,
-  LOGINED,
-  EXPIRED_COOKIE,
-  INVALID_LOGIN,
-} from "./constants";
+import { POST_API_LOGIN, INVALID_LOGIN, RECEIVE_API_LOGIN } from './constants'
 
-export function getApiLogin(data) {
+export function postApiLogin(payload) {
   return {
-    type: GET_API_LOGIN,
-    payload: data,
-  };
+    type: POST_API_LOGIN,
+    payload,
+  }
 }
 
-export function receiveApiLogin(data) {
+export function reciveApiLogin(payload) {
   return {
     type: RECEIVE_API_LOGIN,
-    payload: data,
-  };
-}
-
-export function logOut() {
-  return {
-    type: LOG_OUT,
-  };
-}
-export function logined() {
-  return {
-    type: LOGINED,
-  };
-}
-
-export function expiredCookies() {
-  return {
-    type: EXPIRED_COOKIE,
-  };
+    payload,
+  }
 }
 
 export function invalidLogin() {
   return {
     type: INVALID_LOGIN,
-  };
+  }
 }

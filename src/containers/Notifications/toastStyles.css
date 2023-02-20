@@ -1,0 +1,19 @@
+.Toastify__toast--success {
+  background: #04aa6d;
+  color: #fff;
+}
+
+.Toastify__progress-bar {
+  color: #ffffffb3;
+  background-color: hsla(0, 0%, 100%, 0.7);
+}
+
+.Toastify__toast--warning {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.Toastify__toast--error {
+  background: #e74c3c;
+  color: #fff;
+}

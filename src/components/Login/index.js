@@ -1,5 +1,5 @@
 import React from "react";
-import Footer from "../../UI/Layouts/Footer";
+import Footer from "./Footer";
 import FormLogin from "./FormLogin";
 import Header from "./Header";
 

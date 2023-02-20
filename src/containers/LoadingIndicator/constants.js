@@ -1,3 +1,0 @@
-export const LOAD_REQUESTING = "LOAD_REQUESTING";
-export const LOAD_SUCCESS = "LOAD_SUCCESS";
-export const LOAD_ERROR = "LOAD_ERROR";

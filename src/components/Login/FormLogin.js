@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import styled from '@emotion/styled'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import {
   Alert,
   Button,
@@ -7,70 +7,70 @@ import {
   InputAdornment,
   TextField,
   Typography,
-} from "@mui/material";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { getApiLogin } from "../../containers/LoginPage/actions";
+} from '@mui/material'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { postApiLogin } from '../../containers/LoginPage/actions'
 
 // Styled component
-const Container = styled("div")({
-  backgroundColor: "#edf0f5",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  height: "calc(100vh - 100px)",
-});
+const Container = styled('div')({
+  backgroundColor: '#edf0f5',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100vh',
+})
 
-const LoginForm = styled("div")({
-  width: "86%",
-  backgroundColor: "white",
-  margin: "0 auto",
+const LoginForm = styled('div')({
+  width: 'calc(100% - 30px)',
+  backgroundColor: 'white',
+  margin: '0 auto',
   padding: 30,
   borderRadius: 5,
-});
+})
 
-const Title = styled("div")({
-  textAlign: "center",
-});
+const Title = styled('div')({
+  textAlign: 'center',
+})
 
-const Welcome = styled("div")(() => ({
-  color: "#04aa6d",
+const Welcome = styled('div')(() => ({
+  color: '#04aa6d',
   fontSize: 24,
   fontWeight: 700,
   marginBottom: 5,
-}));
+}))
 
-const Subtitle = styled("div")({
-  marginBottom: 25,
-});
+const Subtitle = styled('div')({
+  marginBottom: 15,
+})
 
 function FormLogin(props) {
-  const dispatch = useDispatch();
-  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch()
+  const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
 
-  const { invalidLogin } = useSelector((state) => state.loginPageReducer);
+  const { invalidLogin } = useSelector((state) => state.loginPageReducer)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
   // Handle events click
   const handleSubmitForm = (values) => {
     try {
-      dispatch(getApiLogin(values));
+      dispatch(postApiLogin(values))
     } catch (error) {
-      toast.error(error.message);
+      navigate('/error_page')
     }
-  };
+  }
 
   const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+    setShowPassword(!showPassword)
+  }
 
   return (
     <Container>
@@ -79,6 +79,13 @@ function FormLogin(props) {
           <Welcome>Welcome Back</Welcome>
           <Subtitle>Login with your username & password</Subtitle>
         </Title>
+        {invalidLogin && (
+          <Alert severity="error" style={{ marginBottom: 25 }}>
+            The username or password is incorrect.
+            <br /> Please try again.
+          </Alert>
+        )}
+
         <form
           onSubmit={handleSubmit(handleSubmitForm)}
           noValidate
@@ -90,7 +97,7 @@ function FormLogin(props) {
             variant="outlined"
             color="primary"
             fullWidth
-            {...register("username", { required: true })}
+            {...register('username', { required: true })}
             error={errors.username && true}
           />
           {errors.username && (
@@ -106,8 +113,8 @@ function FormLogin(props) {
             color="primary"
             fullWidth
             margin="normal"
-            type={showPassword ? "text" : "password"}
-            {...register("password", { required: true })}
+            type={showPassword ? 'text' : 'password'}
+            {...register('password', { required: true })}
             error={errors.password && true}
             InputProps={{
               endAdornment: (
@@ -129,21 +136,14 @@ function FormLogin(props) {
             color="primary"
             type="submit"
             fullWidth
-            sx={{ marginTop: "25px" }}
+            style={{ marginTop: '25px' }}
           >
             Login
           </Button>
         </form>
       </LoginForm>
-
-      {invalidLogin && (
-        <Alert severity="error">
-          The username or password is incorrect.
-          <br /> Please try again.
-        </Alert>
-      )}
     </Container>
-  );
+  )
 }
 
-export default FormLogin;
+export default FormLogin

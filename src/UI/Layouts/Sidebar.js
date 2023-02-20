@@ -1,83 +1,95 @@
-import styled from "@emotion/styled";
-import { Close, Logout, Storefront } from "@mui/icons-material";
+import styled from '@emotion/styled'
+import { Close, Logout, Storefront } from '@mui/icons-material'
 import {
-  Button,
+  IconButton,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-} from "@mui/material";
-import React from "react";
+} from '@mui/material'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const BoxMenu = styled("div")({
-  position: "fixed",
+const BoxMenu = styled('div')({
+  position: 'fixed',
   top: 0,
   left: 0,
   bottom: 0,
   right: 0,
-  background: "rgba(0, 0, 0, 0.5)",
-  zIndex: 100,
-  transition: "all 1s ease",
-});
+  background: 'rgba(0, 0, 0, 0.5)',
+  zIndex: 9999,
+})
 
-const ContainerMenu = styled("div")({
-  width: 210,
-  height: "100%",
-  background: "#222D32",
-  overflow: "hidden",
-  transition: "all 0.5s ease",
-});
+const ContainerMenu = styled('div')({
+  maxWidth: 210,
+  height: '100%',
+  background: '#222D32',
+  overflow: 'hidden',
+})
 
-const CloseButton = styled("div")({
-  display: "flex ",
-  justifyContent: "flex-end",
-  alignItems: "center",
+const CloseButton = styled('div')({
+  display: 'flex ',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
   padding: 8,
-});
+})
 
 const menuItems = [
   {
-    name: "Stores",
+    name: 'Stores',
     icon: <Storefront />,
+    path: '/store',
   },
   {
-    name: "Logout",
+    name: 'Logout',
     icon: <Logout />,
+    path: '/login',
   },
-];
+]
 
 function Sidebar({ onClick: handleToggleMenu }) {
+  const navigate = useNavigate()
+
+  const handleClickMenu = (path) => {
+    handleToggleMenu()
+    navigate(path)
+  }
+
   return (
     <BoxMenu>
       <ContainerMenu>
         <CloseButton>
-          <Button
-            style={{ color: "#b8c7ce", minWidth: 0 }}
+          <IconButton
+            style={{ color: '#b8c7ce', minWidth: 0 }}
             onClick={handleToggleMenu}
           >
             <Close />
-          </Button>
+          </IconButton>
         </CloseButton>
         <List>
           {menuItems.map((item) => {
             return (
-              <ListItem button key={item.name}>
+              <ListItem
+                button
+                key={item.path}
+                onClick={() => handleClickMenu(item.path)}
+              >
                 <ListItemIcon
-                  style={{ color: "#b8c7ce", minWidth: 0, marginRight: 10 }}
+                  style={{ color: '#b8c7ce', minWidth: 0, marginRight: 10 }}
                 >
                   {item.icon}
                 </ListItemIcon>
                 <ListItemText
                   primary={item.name}
-                  style={{ color: "#b8c7ce" }}
+                  style={{ color: '#b8c7ce' }}
                 />
               </ListItem>
-            );
+            )
           })}
         </List>
       </ContainerMenu>
     </BoxMenu>
-  );
+  )
 }
 
-export default Sidebar;
+export default Sidebar

@@ -1,12 +1,12 @@
-import { combineReducers } from "redux";
-import { loadingIndicatorReducer } from "./containers/LoadingIndicator/reducer";
-import { loginPageReducer } from "./containers/LoginPage/reducer";
+import { combineReducers } from 'redux'
+import { loginPageReducer } from './containers/LoginPage/reducer'
+import { notificationsReducer } from './containers/Notifications/reducer'
 
 export default function createReducer() {
   const rootReducer = combineReducers({
     loginPageReducer,
-    loadingIndicatorReducer,
-  });
+    notificationsReducer,
+  })
 
-  return rootReducer;
+  return rootReducer
 }

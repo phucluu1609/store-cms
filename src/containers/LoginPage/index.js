@@ -1,17 +1,17 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import Login from "../../components/Login";
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import Login from '../../components/Login'
 
-function LoginPage(props) {
+function LoginPage() {
   return (
     <div>
       <Helmet>
-        <title>STORE-CMS | LOGIN</title>
+        <title>PIZZAHUT-CMS | LOGIN</title>
         <meta name="description" content="Description of LoginPage" />
       </Helmet>
       <Login />
     </div>
-  );
+  )
 }
 
-export default LoginPage;
+export default LoginPage

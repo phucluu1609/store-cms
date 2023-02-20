@@ -1,40 +1,39 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Route, Routes, useLocation } from "react-router-dom";
-import LoadingIndicator from "../containers/LoadingIndicator";
-import LoginPage from "../containers/LoginPage";
-import Footer from "../UI/Layouts/Footer";
-import Header from "../UI/Layouts/Header";
-import Sidebar from "../UI/Layouts/Sidebar";
-import { routes } from "./privateRoutes";
-import ProtectedRoute from "./ProtectedRoute";
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Route, Routes, useLocation } from 'react-router-dom'
+import LoadingIndicator from '../containers/LoadingIndicator'
+import LoginPage from '../containers/LoginPage'
+import Page404 from '../containers/Page404'
+import Footer from '../UI/Layouts/Footer'
+import Header from '../UI/Layouts/Header'
+import Sidebar from '../UI/Layouts/Sidebar'
+import { routes } from './privateRoutes'
+import ProtectedRoute from './ProtectedRoute'
 
 function App() {
-  // const location = useLocation();
-  // const [urlPage, setUrlpage] = useState("");
-  const [toggleMenu, setToggleMenu] = useState(false);
+  const location = useLocation()
+  const [toggleMenu, setToggleMenu] = useState(false)
+  const [urlPage, setUrlPage] = useState('')
+  const loading = useSelector((state) => state.loginPageReducer.requesting)
+  const login = useSelector((state) => state.loginPageReducer.isLogin)
 
-  const loading = useSelector(
-    (state) => state.loadingIndicatorReducer.requesting
-  );
-  const login = useSelector((state) => state.loginPageReducer.isLogin);
-
-  // useEffect(() => {
-  //   setUrlpage(location.pathname);
-  // }, [location]);
+  useEffect(() => {
+    setUrlPage(location.pathname)
+  }, [location])
 
   const handleToggleMenu = () => {
-    setToggleMenu(!toggleMenu);
-  };
+    setToggleMenu(!toggleMenu)
+  }
 
   return (
     <div>
       {loading && <LoadingIndicator />}
-      {/* {login && urlPage && !== '/error_page' && <Header onClick={handleToggleMenu} />} */}
-      <Header onClick={handleToggleMenu} />
-
-      {toggleMenu && <Sidebar onClick={handleToggleMenu} />}
-
+      {login && urlPage !== '/error_page' && (
+        <Header onClick={handleToggleMenu} />
+      )}
+      {login && urlPage !== '/error_page' && toggleMenu && (
+        <Sidebar onClick={handleToggleMenu} />
+      )}
       <div>
         <Routes>
           {routes.map((route) => (
@@ -54,12 +53,12 @@ function App() {
             />
           ))}
           <Route exact path="/login" element={<LoginPage />} />
+          <Route exact path="/error_page" element={<Page404 />} />
         </Routes>
       </div>
-      {/* {login && urlPage && !== '/error_page' && <Footer />} */}
-      <Footer />
+      {login && urlPage !== '/error_page' && <Footer />}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
