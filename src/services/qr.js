@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = `https://uatapi.pizzahut.vn/API_CMS_STORE_UAT/phvn/qrcodemapping/get-tablemapping`
+const baseUrl = `${process.env.REACT_APP_API_DOMAIN}/phvn/qrcodemapping/get-tablemapping`
 
 export const getQRInfo = async (qrCodeId, storeId) => {
   const request = axios.get(baseUrl, {
