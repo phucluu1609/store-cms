@@ -4,7 +4,13 @@
  *
  */
 
-import { NOTI_ERROR, NOTI_SUCCESS, NOTI_WARING, RESET_NOTI } from './constants'
+import {
+  NOTI_ERROR,
+  NOTI_INFO,
+  NOTI_SUCCESS,
+  NOTI_WARING,
+  RESET_NOTI,
+} from './constants'
 
 export function NotiSuccess(content) {
   return {
@@ -23,6 +29,13 @@ export function NotiWarning(content) {
 export function NotiError(content) {
   return {
     type: NOTI_ERROR,
+    payload: content,
+  }
+}
+
+export function NotiInfo(content) {
+  return {
+    type: NOTI_INFO,
     payload: content,
   }
 }

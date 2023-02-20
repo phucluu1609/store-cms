@@ -1,4 +1,4 @@
-import { CheckCircle, Error, Warning } from '@mui/icons-material'
+import { CheckCircle, Error, Info, Warning } from '@mui/icons-material'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { toast, ToastContainer } from 'react-toastify'
@@ -26,6 +26,12 @@ function Notifications() {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 9000,
         icon: <Error />,
+      })
+    } else if (status === 'info') {
+      toast.info(content, {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 9000,
+        icon: <Info />,
       })
     } else {
       return

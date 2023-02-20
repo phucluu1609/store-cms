@@ -4,7 +4,13 @@
  *
  */
 
-import { NOTI_ERROR, NOTI_SUCCESS, NOTI_WARING, RESET_NOTI } from './constants'
+import {
+  NOTI_ERROR,
+  NOTI_INFO,
+  NOTI_SUCCESS,
+  NOTI_WARING,
+  RESET_NOTI,
+} from './constants'
 
 export const initialState = {
   status: '',
@@ -22,6 +28,12 @@ export const notificationsReducer = (state = initialState, action) => {
     case NOTI_WARING:
       return {
         status: 'warning',
+        content: action.payload,
+      }
+
+    case NOTI_INFO:
+      return {
+        status: 'info',
         content: action.payload,
       }
 
