@@ -12,7 +12,7 @@ function Notifications() {
     if (status === 'success') {
       toast.success(content, {
         position: toast.POSITION.TOP_RIGHT,
-        autoClose: 2000,
+        autoClose: 5000,
         icon: <CheckCircle />,
       })
     } else if (status === 'warning') {
