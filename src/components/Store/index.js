@@ -3,8 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import AlertDialog from '../../common/Dialog'
-import { NotiError, NotiSuccess } from '../../containers/Notifications/actions'
-import * as QRServices from '../../services/qr'
+import {
+  NotiError,
+  NotiInfo,
+  NotiSuccess,
+} from '../../containers/Notifications/actions'
+import * as QRServices from '../../services/qrCode'
 import { BtnCancel, BtnSave, ListBtn } from '../../UI/ActionsButton'
 import DetailStore from './DetailStore'
 import ScanQrCode from './ScanQR'
@@ -16,6 +20,7 @@ function Store() {
   const [openDialog, setOpenDialog] = useState(false)
   const [qrCodeId, setQrCodeId] = useState('')
   const [dataStore, setDataStore] = useState([])
+  const [tableId, setTableId] = useState('')
 
   // Handle events click
   const handleSave = () => {
@@ -32,7 +37,15 @@ function Store() {
 
   const handleClickBtnRight = () => {
     setOpenDialog(false)
-    dispatch(NotiSuccess('Save Success!'))
+    const fetchQrMapping = async () => {
+      const res = await QRServices.postQRMapping('D921', 'A01')
+      if (res?.code === 0) {
+        // Show success
+      } else {
+        dispatch(NotiError(res.message))
+      }
+    }
+    fetchQrMapping()
   }
 
   const handleClickScan = () => {
@@ -41,12 +54,13 @@ function Store() {
 
   const handleCloseScan = () => {
     setScanner(false)
-    window.location.reload()
   }
 
-  // Check QRcode valid
+  // Check url QR valid
   const checkValidUrl = (url) => {
-    if (url === 'https://qr.pizzahut.vn/QRCODE06') {
+    const urlQr = 'https://qr.pizzahut.vn'
+
+    if (url === `${urlQr}/QRCODE06`) {
       return false
     }
     return true
@@ -60,7 +74,7 @@ function Store() {
     const url = result.data
     if (!checkValidUrl(url)) {
       // alert('QR khong hop le. Vui long quet lai!')
-      dispatch(NotiError('QR does not match. Please try again'))
+      dispatch(NotiError('QR does not match. Please try again!'))
     } else {
       setScanner(false)
       setQrCodeId(getQrIdFromUrl(url))
@@ -73,20 +87,24 @@ function Store() {
   }
 
   useEffect(() => {
-    if (qrCodeId) {
-      const fetchApiQr = async () => {
-        const response = await QRServices.getQRInfo(qrCodeId, 'D921')
-        if (response?.code === 0) {
-          if (response?.data) {
-            setDataStore(response.data)
+    try {
+      if (qrCodeId) {
+        const fetchApiQr = async () => {
+          const res = await QRServices.getQRInfo(qrCodeId, 'D921')
+          if (res?.code === 0) {
+            if (res?.data?.tableMapping?.tableId === null) {
+              setDataStore(res.data)
+            }
+          } else {
+            dispatch(NotiInfo(res.message))
           }
-        } else {
-          dispatch(NotiError(response.message))
         }
+        fetchApiQr().catch((err) => console.error(err))
       }
-      fetchApiQr().catch((error) => console.log(error.message))
+    } catch (error) {
+      navigate('/error_page')
     }
-  }, [qrCodeId])
+  }, [qrCodeId, dispatch, navigate])
 
   return (
     <Box>
@@ -106,7 +124,7 @@ function Store() {
           component="h1"
           fontWeight={'bold'}
           textAlign="center"
-          marginBottom={2}
+          mb={2}
         >
           QR CODE
         </Typography>
@@ -118,7 +136,7 @@ function Store() {
         />
         <Button
           variant="contained"
-          style={{ width: 200, height: 200 }}
+          style={{ width: 200, height: 200, fontSize: 20 }}
           onClick={handleClickScan}
         >
           Scan

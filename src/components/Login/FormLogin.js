@@ -11,8 +11,8 @@ import {
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { postApiLogin } from '../../containers/LoginPage/actions'
+import { NotiError } from '../../containers/Notifications/actions'
 
 // Styled component
 const Container = styled('div')({
@@ -49,9 +49,10 @@ const Subtitle = styled('div')({
 function FormLogin(props) {
   const dispatch = useDispatch()
   const [showPassword, setShowPassword] = useState(false)
-  const navigate = useNavigate()
 
-  const { invalidLogin } = useSelector((state) => state.loginPageReducer)
+  const { invalidLogin, expireCookie } = useSelector(
+    (state) => state.loginPageReducer
+  )
 
   const {
     register,
@@ -60,14 +61,9 @@ function FormLogin(props) {
   } = useForm()
 
   // Handle events click
-  const handleSubmitForm = (values) => {
-    try {
-      dispatch(postApiLogin(values))
-    } catch (error) {
-      navigate('/error_page')
-    }
+  const onSubmit = (data) => {
+    dispatch(postApiLogin(data))
   }
-
   const handleShowPassword = () => {
     setShowPassword(!showPassword)
   }
@@ -79,6 +75,11 @@ function FormLogin(props) {
           <Welcome>Welcome Back</Welcome>
           <Subtitle>Login with your username & password</Subtitle>
         </Title>
+        {expireCookie && (
+          <Alert severity="warning" style={{ marginBottom: 25 }}>
+            Your session has expired. Please login again.
+          </Alert>
+        )}
         {invalidLogin && (
           <Alert severity="error" style={{ marginBottom: 25 }}>
             The username or password is incorrect.
@@ -86,11 +87,7 @@ function FormLogin(props) {
           </Alert>
         )}
 
-        <form
-          onSubmit={handleSubmit(handleSubmitForm)}
-          noValidate
-          autoComplete="off"
-        >
+        <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
           <TextField
             id="username-input"
             label="Username"

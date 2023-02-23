@@ -1,7 +1,7 @@
-import React from "react";
-import Footer from "./Footer";
-import FormLogin from "./FormLogin";
-import Header from "./Header";
+import React from 'react'
+import Footer from './Footer'
+import FormLogin from './FormLogin'
+import Header from './Header'
 
 function Login() {
   return (
@@ -10,7 +10,7 @@ function Login() {
       <FormLogin />
       <Footer />
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login

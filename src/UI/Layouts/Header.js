@@ -18,7 +18,9 @@ import {
 } from '@mui/material'
 import { styled } from '@mui/system'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { logOut } from '../../containers/LoginPage/actions'
 import logo from '../../images/logo.svg'
 
 const Logo = styled('img')({
@@ -28,6 +30,8 @@ const Logo = styled('img')({
 })
 
 function Header({ onClick: handleToggleMenu }) {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [open, setOpen] = useState(null)
   const infoUser = useSelector((state) => state.loginPageReducer.infoUser)
 
@@ -38,6 +42,11 @@ function Header({ onClick: handleToggleMenu }) {
 
   const handleClose = () => {
     setOpen(null)
+  }
+
+  const handleLogOut = () => {
+    dispatch(logOut())
+    navigate('/login')
   }
 
   return (
@@ -96,11 +105,9 @@ function Header({ onClick: handleToggleMenu }) {
             onClose={handleClose}
             style={{ padding: 0 }}
           >
-            <Typography
-              variant="body1"
-              textAlign="center"
-              padding={1}
-            >{`${infoUser}@jrgvn.com`}</Typography>
+            <Typography variant="body1" textAlign="center" padding={1}>
+              {infoUser[0]?.data?.email}
+            </Typography>
             <Divider />
             <MenuItem onClick={handleClose}>
               <ListItemIcon>
@@ -121,9 +128,9 @@ function Header({ onClick: handleToggleMenu }) {
               Manage Users
             </MenuItem>
             <Divider />
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleLogOut}>
               <ListItemIcon>
-                <Logout fontSize="small" color="" />
+                <Logout fontSize="small" sx={{ color: '#04aa6d' }} />
               </ListItemIcon>
               Logout
             </MenuItem>

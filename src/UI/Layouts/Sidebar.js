@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Close, Logout, Storefront } from '@mui/icons-material'
+import { Close, Home, Logout, Storefront } from '@mui/icons-material'
 import {
   IconButton,
   List,
@@ -8,7 +8,9 @@ import {
   ListItemText,
 } from '@mui/material'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { logOut } from '../../containers/LoginPage/actions'
 
 const BoxMenu = styled('div')({
   position: 'fixed',
@@ -18,6 +20,7 @@ const BoxMenu = styled('div')({
   right: 0,
   background: 'rgba(0, 0, 0, 0.5)',
   zIndex: 9999,
+  transition: 'all 0.5s ease',
 })
 
 const ContainerMenu = styled('div')({
@@ -25,6 +28,7 @@ const ContainerMenu = styled('div')({
   height: '100%',
   background: '#222D32',
   overflow: 'hidden',
+  transition: 'all 0.5s ease',
 })
 
 const CloseButton = styled('div')({
@@ -35,6 +39,11 @@ const CloseButton = styled('div')({
 })
 
 const menuItems = [
+  {
+    name: 'Home',
+    icon: <Home />,
+    path: '/',
+  },
   {
     name: 'Stores',
     icon: <Storefront />,
@@ -49,10 +58,15 @@ const menuItems = [
 
 function Sidebar({ onClick: handleToggleMenu }) {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleClickMenu = (path) => {
     handleToggleMenu()
     navigate(path)
+
+    if (path === '/login') {
+      dispatch(logOut())
+    }
   }
 
   return (
