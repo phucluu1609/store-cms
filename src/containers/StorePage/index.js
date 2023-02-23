@@ -6,7 +6,7 @@ function StorePage() {
   return (
     <div>
       <Helmet>
-        <title>PIZZAHUT-CMS | STORE</title>
+        <title>STORE-CMS | STORE</title>
         <meta name="description" content="Description of LoginPage" />
       </Helmet>
       <Store />

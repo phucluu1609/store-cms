@@ -17,7 +17,7 @@ function LoginPage() {
   return (
     <div>
       <Helmet>
-        <title>PIZZAHUT-CMS | LOGIN</title>
+        <title>STORE-CMS | LOGIN</title>
         <meta name="description" content="Description of LoginPage" />
       </Helmet>
       <Login />

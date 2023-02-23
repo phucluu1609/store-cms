@@ -11,8 +11,7 @@ import {
 } from '@mui/material'
 import React, { useState } from 'react'
 
-function DetailStore({ dataStore }) {
-  const [storeOptions, setStoreOptions] = useState('')
+function DetailStore({ dataStore, tableId, setTableId }) {
   const [disabledInput, setDisabledInput] = useState(false)
 
   const handleClickDisabled = (e) => {
@@ -20,7 +19,7 @@ function DetailStore({ dataStore }) {
   }
 
   const handleChange = (e) => {
-    setStoreOptions(e.target.value)
+    setTableId(e.target.value)
   }
 
   return (
@@ -46,7 +45,7 @@ function DetailStore({ dataStore }) {
           <Select
             id="table_id"
             fullWidth
-            value={storeOptions}
+            value={tableId}
             onChange={handleChange}
             style={{ marginLeft: 10, height: 30 }}
             disabled={disabledInput}

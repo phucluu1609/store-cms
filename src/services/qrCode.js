@@ -8,11 +8,13 @@ export const getQRInfo = async (qrCodeId, storeId) => {
   return request.then((response) => response.data)
 }
 
-export const postQRMapping = async (storeId, tableId) => {
+export const postQRMapping = async (qrCodeId, storeId, tableId, userName) => {
   const request = axios.post(`${BASE_URL}/phvn/qrcodemapping/qrcodemapping`, {
     // Data send to server
+    qrCodeId: qrCodeId,
     tableId: tableId,
     storeId: storeId,
+    userName: userName,
   })
   return request.then((response) => response.data)
 }

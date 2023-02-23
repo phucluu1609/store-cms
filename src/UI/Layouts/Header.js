@@ -106,7 +106,7 @@ function Header({ onClick: handleToggleMenu }) {
             style={{ padding: 0 }}
           >
             <Typography variant="body1" textAlign="center" padding={1}>
-              {infoUser[0]?.data?.email}
+              {infoUser[0]?.email}
             </Typography>
             <Divider />
             <MenuItem onClick={handleClose}>
